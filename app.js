@@ -2,13 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const connectDB = require('./database');
 
-
-const userRoutes = require('./route/productRoute');
+const productRoutes = require('./route/productRoute');
+const userRoutes = require('./route/userRoute');
 // Middleware
 const app = express();
 app.use(express.json());
 // Routes
-app.use('/api/products', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 8080;
 

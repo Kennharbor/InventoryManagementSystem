@@ -2,11 +2,15 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controller/productController');
 
+//bring in the auth middleware
+const { protect } = require('../middleware/authMiddleware');
+const { authorizeRoles } = require('../middleware/authorizeRoles');
+
 // Define the routes
-router.post('/', productController.createProduct);
-router.get('/', productController.getAllProducts);
-router.get('/:id', productController.getProductById);
-router.put('/:id', productController.updateProduct);
-router.delete('/:id', productController.deleteProduct);
+router.post('/', protect, authorizeRoles('admin'), productController.createProduct);
+router.get('/', protect, productController.getAllProducts);
+router.get('/:id', protect, productController.getProductById);
+router.put('/:id', protect, authorizeRoles('admin'), productController.updateProduct);
+router.delete('/:id', protect, authorizeRoles('admin'), productController.deleteProduct);
 
 module.exports = router;
