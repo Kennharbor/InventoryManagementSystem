@@ -12,5 +12,7 @@ router.get('/', protect, productController.getAllProducts);
 router.get('/:id', protect, productController.getProductById);
 router.put('/:id', protect, authorizeRoles('admin'), productController.updateProduct);
 router.delete('/:id', protect, authorizeRoles('admin'), productController.deleteProduct);
+router.put('/:id/image', protect, authorizeRoles('admin'), productController.updateProductImage);
+router.post('/email', protect, authorizeRoles('admin'), productController.createProductWithEmail);
 
 module.exports = router;
