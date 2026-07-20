@@ -2,6 +2,12 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const userWithoutPassword = (user) => {
+  const safeUser = user.toObject();
+  delete safeUser.password;
+  return safeUser;
+};
+
 // Create a new user
 exports.createUser = async (req, res) => {
   try {
@@ -37,7 +43,7 @@ exports.createUser = async (req, res) => {
       role
     });
 
-    res.status(200).json(user);
+    res.status(201).json(userWithoutPassword(user));
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -60,7 +66,7 @@ exports.loginUser = async (req, res) => {
     //generate a token for the user
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.status(200).json({ message: 'Login successful', user, token });
+    res.status(200).json({ message: 'Login successful', user: userWithoutPassword(user), token });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

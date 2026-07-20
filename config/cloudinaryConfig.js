@@ -1,5 +1,3 @@
-const { model } = require('mongoose');
-
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({

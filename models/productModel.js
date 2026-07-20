@@ -8,9 +8,17 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  description: {
+    type: String,
+    default: ''
+  },
   imageURL: {
     type: String,
-    required: true
+    default: ''
+  },
+  imagePublicId: {
+    type: String,
+    default: ''
   },
   quantity: {
     type: Number,
